@@ -1,0 +1,26 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: sc-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos:8848
+    sentinel:
+      transport:
+        dashboard: sentinel.dashboard:8080
+      filter:
+        enabled: false
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

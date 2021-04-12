@@ -1,0 +1,61 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: seata-storage
+  profiles:
+    active: develop
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos:8848
+      config:
+        server-addr: nacos:8848
+        file-extension: yaml
+    sentinel:
+      transport:
+        dashboard: sentinel.dashboard:8080
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql:3306/seata?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: 123456
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+feign:
+  sentinel:
+    enabled: true
+
+seata:
+  enabled: true
+  tx-service-group: seata-storage
+  service:
+    vgroup-mapping:
+      seata-storage: default
+  registry:
+    type: nacos
+    nacos:
+      cluster: default
+      server-addr: nacos:8848
+      group: "SEATA_GROUP"
+      namespace: ""
+      username: "nacos"
+      password: "nacos"
+
+logging:
+  level:
+    root: info
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

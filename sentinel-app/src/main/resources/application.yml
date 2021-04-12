@@ -1,0 +1,23 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: sentinel-app
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos:8848
+    sentinel:
+      transport:
+        dashboard: sentinel.dashboard:8080
+
+feign:
+  sentinel:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
